@@ -1,17 +1,14 @@
 import React from "react";
-
-// Use the absolute path from the public folder
 import spreadshopImage from '/Product Hero.webp';
 
 const SpreadshopBanner = () => {
   return (
     <div className="min-h-screen bg-[#C29CEB] flex items-center justify-center px-10 py-12">
       <div className="flex flex-col md:flex-row items-center justify-evenly w-full max-w-9xl gap-10">
-        {/* Left - Image Mockup */}
         <div className="relative order-1 md:order-1">
           <div>
             <img
-              src={spreadshopImage} // Use the imported image here
+              src={spreadshopImage} 
               alt="Merch items"
               className="w-72 h-auto object-cover"
             />

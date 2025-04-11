@@ -11,13 +11,13 @@ const Navbar = ({ setActiveModal }) => {
         <div className="hidden sm:flex gap-4">
         <button
             onClick={() => setActiveModal('login')}
-            className="bg-gray-800 hover:bg-gray-700 text-white px-4 py-2 rounded"
+            className="bg-black border-2 rounded-2xl hover:bg-gray-700 text-white px-4 py-2 "
           >
             Sign In
           </button>
           <button
             onClick={() => setActiveModal('register')}
-            className="bg-gray-800 hover:bg-gray-700 text-white px-4 py-2 rounded"
+            className="bg-white border-2 rounded-2xl hover:bg-gray-300 text-black px-4 py-2 "
           >
             Sign Up
           </button>

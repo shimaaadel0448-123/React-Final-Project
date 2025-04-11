@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 
-const Navbar = () => {
+const Navbar = ({ setActiveModal }) => {
   const [menuOpen, setMenuOpen] = useState(false);
 
   return (
@@ -9,11 +9,17 @@ const Navbar = () => {
         <h1 className="text-white text-3xl sm:text-4xl font-bold">CustomClothes</h1>
 
         <div className="hidden sm:flex gap-4">
-          <button className="bg-black px-4 py-2 hover:bg-gray-300 hover:text-black text-white border border-white rounded-lg transition">
-            Login
+        <button
+            onClick={() => setActiveModal('login')}
+            className="bg-gray-800 hover:bg-gray-700 text-white px-4 py-2 rounded"
+          >
+            Sign In
           </button>
-          <button className="bg-white px-4 py-2 hover:bg-gray-300 text-black border border-white rounded-lg transition">
-            Register
+          <button
+            onClick={() => setActiveModal('register')}
+            className="bg-gray-800 hover:bg-gray-700 text-white px-4 py-2 rounded"
+          >
+            Sign Up
           </button>
         </div>
 

@@ -1,10 +1,10 @@
 import React, { useEffect, useState } from 'react';
 import ProductCard from './ProductCard';
-
+import { useNavigate } from 'react-router-dom';
 const ProductList = () => {
   const [products, setProducts] = useState([]);
   const [filter, setFilter] = useState('all');
-
+  const navigate = useNavigate(); 
   const fetchProducts = async (category) => {
     let url = 'https://fakestoreapi.com/products';
 
@@ -20,7 +20,14 @@ const ProductList = () => {
     const data = await res.json();
     setProducts(data);
   };
-
+  const viewDetails = (id) => {
+    if (filter === 'accessories') {
+      navigate(`/ViewAccDetails/${id}`);
+    } else {
+      navigate(`/ViewWomenDetails/${id}`);
+    }
+  };
+  
   useEffect(() => {
     fetchProducts(filter);
   }, [filter]);
@@ -44,10 +51,12 @@ const ProductList = () => {
         ))}
       </div>
       <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
-        {products.map((product) => (
-          <ProductCard key={product.id} product={product} />
-        ))}
-      </div>
+  {products.map((product) => (
+    <div key={product.id} onClick={() => viewDetails(product.id)}>
+      <ProductCard product={product} />
+    </div>
+  ))}
+</div>
     </div>
   );
 };

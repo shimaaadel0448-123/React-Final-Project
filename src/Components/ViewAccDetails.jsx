@@ -7,6 +7,7 @@ import img9 from'../assets/images/14.webp'
 import ReviewForm from './ReviewForm';
 import ReviewList from './ReviewList';
 import { useParams } from 'react-router-dom';
+import IconsComponent from './IconsComponent';
 export default function ViewDetails() {
     const { id } = useParams();
     const [reviews, setReviews] = useState([]);
@@ -438,13 +439,14 @@ useEffect(() => {
 
 </div>
 <div style={{ display: 'flex', justifyContent: 'center', gap: '24px',height:"65px",backgroundColor:'black'}}>
-<i className="fa fa-instagram" style={{ width: '23px', height: '23px', fontSize: '23px',color:'white',marginTop:'8px' }}></i> {/* أيقونة Instagram */}
+<i className="fa fa-instagram" style={{ width: '23px', height: '23px', fontSize: '23px',color:'white',marginTop:'8px' }}></i> 
 <i className="fa fa-facebook hover:text-[#FF8256]" style={{ width: '23px', height: '23px', fontSize: '23px', fontWeight: 'bold', color: 'white', marginTop: '8px' }}></i>
 <i className="fa fa-pinterest-p hover:text-[#FF8256]" style={{ width: '23px', height: '23px', fontSize: '23px', color: 'white', marginTop: '8px' }}></i>
 <i className="fa fa-youtube-play hover:text-[#FF8256]" style={{ width: '23px', height: '23px', fontSize: '23px', color: 'white', marginTop: '8px' }}></i>
 <i className="fa fa-x hover:text-[#FF8256]" style={{ width: '23px', height: '23px', fontSize: '23px', color: 'white', marginTop: '8px' }}></i>
 
 </div>
+<IconsComponent/>
 
 
 

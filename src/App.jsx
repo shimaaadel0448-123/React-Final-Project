@@ -9,13 +9,33 @@ import SpreadshopBanner from './Components/SpreadshopBanner';
 import VideoComponent from './Components/VideoComponent';
 import IconsComponent from './Components/IconsComponent';
 import ViewAccDetails from './Components/ViewAccDetails';
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { AnimatePresence } from 'framer-motion';
 import Modal from './Components/Modal';
 import Register from './pages/Register';
 import Login from './pages/LoginForm';
+import PrivateRoute from './Components/PrivateRoute';
+import Dashboard from './pages/Dashboard';
 
 function App() {
+  useEffect(() => {
+    const adminUser = {
+      name: 'Admin',
+      email: 'admin@example.com',
+      password: 'admin123',
+      role: 'admin',
+    };
+
+    const users = JSON.parse(localStorage.getItem('users')) || [];
+
+    const adminExists = users.some(user => user.email === adminUser.email);
+
+    if (!adminExists) {
+      users.push(adminUser);
+      localStorage.setItem('users', JSON.stringify(users));
+    }
+  }, []);
+
   const [activeModal, setActiveModal] = useState(null);
 
   const handleCloseModal = () => {
@@ -29,7 +49,7 @@ function App() {
   return (
     <>
       <Navbar setActiveModal={setActiveModal} />
-      
+
       <AnimatePresence>
         {activeModal && (
           <Modal onClose={handleCloseModal}>
@@ -50,14 +70,20 @@ function App() {
       </AnimatePresence>
 
       <Routes>
+        {/* Admin Dashboard (protected) */}
         <Route
-          path="/"
+          path="/dashboard"
           element={
-            <>
-              <ContainerComponent />
-            </>
+            <PrivateRoute requiredRole="admin">
+              <Dashboard />
+            </PrivateRoute>
           }
         />
+
+        {/* Homepage */}
+        <Route path="/" element={<ContainerComponent />} />
+
+        {/* Product details pages */}
         <Route path="/ViewWomenDetails/:id" element={<ViewWomenDetails />} />
         <Route path="/ViewAccDetails/:id" element={<ViewAccDetails />} />
       </Routes>

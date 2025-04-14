@@ -22,28 +22,34 @@ const Login = ({ onClose, switchModal }) => {
 
   const onSubmit = (data) => {
     const { email, password } = data;
-
+  
     // Get users from localStorage
     const users = JSON.parse(localStorage.getItem('users')) || [];
-
+  
     // Find user with matching email and password
     const user = users.find((u) => u.email === email && u.password === password);
-
+  
     if (user) {
-      // ✅ Store login state and user info
+      // Store login status and user info
       localStorage.setItem('isLoggedIn', 'true');
       localStorage.setItem('loggedInUser', JSON.stringify(user));
-
+  
       alert('Login successful!');
       onClose();
-      navigate('/'); // or wherever you want
-
-      // Optional: reload to update UI (like Navbar)
-      window.location.reload();
+  
+      // 👉 Check role and redirect accordingly
+      if (user.role === 'admin') {
+        navigate('/dashboard'); // Admin dashboard
+      } else {
+        navigate('/'); // Or another page for regular users
+      }
+  
+      window.location.reload(); // Update Navbar, etc.
     } else {
       alert('Invalid email or password');
     }
   };
+  
 
   return (
     <div className="space-y-4">

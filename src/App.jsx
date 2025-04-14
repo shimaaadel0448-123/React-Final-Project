@@ -87,7 +87,7 @@ function App() {
         <Route path="/ViewWomenDetails/:id" element={<ViewWomenDetails />} />
         <Route path="/ViewAccDetails/:id" element={<ViewAccDetails />} />
       </Routes>
-
+          <IconsComponent/>
       <Footer />
     </>
   );

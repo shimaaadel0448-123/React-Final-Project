@@ -21,11 +21,26 @@ const Login = ({ onClose, switchModal }) => {
   });
 
   const onSubmit = (data) => {
-    console.log('Login Data:', data);
-    alert('Login successful!');
-    onClose();
-    navigate('/dashboard'); // Now properly using the navigate function
+    const { email, password } = data;
+  
+    // Get users from localStorage
+    const users = JSON.parse(localStorage.getItem('users')) || [];
+  
+    // Find user with matching email and password
+    const user = users.find((u) => u.email === email && u.password === password);
+  
+    if (user) {
+      // Optional: store logged-in user in localStorage or context
+      localStorage.setItem('loggedInUser', JSON.stringify(user));
+  
+      alert('Login successful!');
+      onClose();
+      navigate('/dashboard');
+    } else {
+      alert('Invalid email or password');
+    }
   };
+  
 
   return (
     <div className="space-y-4">

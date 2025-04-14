@@ -24,10 +24,29 @@ const Register = ({ onClose, switchModal }) => {
   });
 
   const onSubmit = (data) => {
-    console.log('Registration Data:', data);
+    const { name, email, password } = data;
+  
+    // Get existing users from localStorage
+    const existingUsers = JSON.parse(localStorage.getItem('users')) || [];
+  
+    // Check if user with the same email already exists
+    const userExists = existingUsers.some((user) => user.email === email);
+    if (userExists) {
+      alert('A user with this email already exists.');
+      return;
+    }
+  
+    // Create new user object (don't store confirmPassword)
+    const newUser = { name, email, password };
+  
+    // Add new user to list and update localStorage
+    const updatedUsers = [...existingUsers, newUser];
+    localStorage.setItem('users', JSON.stringify(updatedUsers));
+  
     alert('Registration successful!');
     onClose(); // Close the registration modal
   };
+  
 
   return (
     <div className="space-y-4">

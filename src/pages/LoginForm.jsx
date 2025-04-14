@@ -22,25 +22,28 @@ const Login = ({ onClose, switchModal }) => {
 
   const onSubmit = (data) => {
     const { email, password } = data;
-  
+
     // Get users from localStorage
     const users = JSON.parse(localStorage.getItem('users')) || [];
-  
+
     // Find user with matching email and password
     const user = users.find((u) => u.email === email && u.password === password);
-  
+
     if (user) {
-      // Optional: store logged-in user in localStorage or context
+      // ✅ Store login state and user info
+      localStorage.setItem('isLoggedIn', 'true');
       localStorage.setItem('loggedInUser', JSON.stringify(user));
-  
+
       alert('Login successful!');
       onClose();
-      navigate('/dashboard');
+      navigate('/'); // or wherever you want
+
+      // Optional: reload to update UI (like Navbar)
+      window.location.reload();
     } else {
       alert('Invalid email or password');
     }
   };
-  
 
   return (
     <div className="space-y-4">

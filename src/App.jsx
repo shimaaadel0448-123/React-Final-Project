@@ -14,6 +14,7 @@ import { AnimatePresence } from 'framer-motion';
 import Modal from './Components/Modal';
 import Register from './pages/Register';
 import Login from './pages/LoginForm';
+import { AuthProvider } from './context/AuthContext';
 
 function App() {
   const [activeModal, setActiveModal] = useState(null);

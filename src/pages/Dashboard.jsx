@@ -1,10 +1,23 @@
-const Dashboard = () => {
-    return (
-      <div className="text-white text-2xl">
-        Welcome to the Admin Dashboard!
-      </div>
-    );
+import { useState } from 'react';
+import './dashboard.css'; // لو عندك ستايلات خاصة
+import Header from './Header';
+import Sidebar from './Sidebar';
+import Home from './Home';
+
+function App() {
+  const [openSidebarToggle, setOpenSidebarToggle] = useState(false);
+
+  const OpenSidebar = () => {
+    setOpenSidebarToggle(!openSidebarToggle);
   };
-  
-  export default Dashboard;
-  
+
+  return (
+    <div className='grid-container'>
+      <Header OpenSidebar={OpenSidebar} />
+      <Sidebar openSidebarToggle={openSidebarToggle} OpenSidebar={OpenSidebar} />
+      <Home />
+    </div>
+  );
+}
+
+export default App;

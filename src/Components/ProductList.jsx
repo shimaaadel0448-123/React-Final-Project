@@ -1,10 +1,12 @@
 import React, { useEffect, useState } from 'react';
 import ProductCard from './ProductCard';
 import { useNavigate } from 'react-router-dom';
+
 const ProductList = () => {
   const [products, setProducts] = useState([]);
   const [filter, setFilter] = useState('all');
-  const navigate = useNavigate(); 
+  const navigate = useNavigate();
+
   const fetchProducts = async (category) => {
     let url = 'https://fakestoreapi.com/products';
 
@@ -16,10 +18,15 @@ const ProductList = () => {
       url = "https://fakestoreapi.com/products/category/jewelery";
     }
 
-    const res = await fetch(url);
-    const data = await res.json();
-    setProducts(data);
+    try {
+      const res = await fetch(url);
+      const data = await res.json();
+      setProducts(data);
+    } catch (error) {
+      console.error("Error fetching products:", error);
+    }
   };
+
   const viewDetails = (id) => {
     if (filter === 'accessories') {
       navigate(`/ViewAccDetails/${id}`);
@@ -27,7 +34,7 @@ const ProductList = () => {
       navigate(`/ViewWomenDetails/${id}`);
     }
   };
-  
+
   useEffect(() => {
     fetchProducts(filter);
   }, [filter]);
@@ -35,14 +42,16 @@ const ProductList = () => {
   return (
     <div className="min-h-screen bg-[#e6dace] p-6">
       <h2 className="text-3xl font-bold text-center mb-6">Our Products</h2>
+
+      {/* Category Filter Buttons */}
       <div className="flex justify-center mb-8 space-x-4">
         {['all', 'men', 'women', 'accessories'].map((cat) => (
           <button
             key={cat}
-            className={`px-4 py-2 rounded-lg font-semibold ${
+            className={`px-4 py-2 rounded-lg font-semibold transition ${
               filter === cat
                 ? 'bg-indigo-600 text-white'
-                : 'bg-white border border-indigo-600 text-indigo-600'
+                : 'bg-white border border-indigo-600 text-indigo-600 hover:bg-indigo-50'
             }`}
             onClick={() => setFilter(cat)}
           >
@@ -50,13 +59,19 @@ const ProductList = () => {
           </button>
         ))}
       </div>
+
+      {/* Product Grid */}
       <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
-  {products.map((product) => (
-    <div key={product.id} onClick={() => viewDetails(product.id)}>
-      <ProductCard product={product} />
-    </div>
-  ))}
-</div>
+        {products.map((product) => (
+          <div
+            key={product.id}
+            onClick={() => viewDetails(product.id)}
+            className="cursor-pointer"
+          >
+            <ProductCard product={product} />
+          </div>
+        ))}
+      </div>
     </div>
   );
 };

@@ -16,6 +16,7 @@ import Register from './pages/Register';
 import Login from './pages/LoginForm';
 import PrivateRoute from './Components/PrivateRoute';
 import Dashboard from './pages/Dashboard';
+import CheckoutPage from './pages/checkout';
 
 function App() {
   useEffect(() => {
@@ -82,6 +83,7 @@ function App() {
 
         {/* Homepage */}
         <Route path="/" element={<ContainerComponent />} />
+        <Route path="/checkout" element={<CheckoutPage />} />
 
         {/* Product details pages */}
         <Route path="/ViewWomenDetails/:id" element={<ViewWomenDetails />} />

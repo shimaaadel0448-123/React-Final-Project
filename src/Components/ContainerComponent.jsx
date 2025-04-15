@@ -3,8 +3,6 @@ import SpreadshopBanner from './SpreadshopBanner';
 import ProductList from './ProductList';
 import VideoComponent from './VideoComponent';
 import IconsComponent from './IconsComponent';
-
-// Import the CSS file
 import './ContainerComponent.css';
 
 const ContainerComponent = () => {
@@ -13,7 +11,6 @@ const ContainerComponent = () => {
       <SpreadshopBanner />
       <ProductList />
       <VideoComponent />
-      <IconsComponent />
     </div>
   );
 };

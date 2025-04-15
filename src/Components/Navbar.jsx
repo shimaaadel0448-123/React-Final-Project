@@ -1,6 +1,7 @@
 import React, { useState, useEffect, useRef } from 'react';
 import { FaHeart, FaShoppingCart, FaUserCircle, FaBoxOpen } from 'react-icons/fa';
 import { Link } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 
 const useOutsideClick = (ref, handler) => {
   useEffect(() => {
@@ -20,6 +21,7 @@ const Navbar = ({ setActiveModal }) => {
   const [showFavDropdown, setShowFavDropdown] = useState(false);
   const [user, setUser] = useState(null);
   const [isLoggedIn, setIsLoggedIn] = useState(false);
+  const navigate = useNavigate();
 
   const cartRef = useRef();
   const favRef = useRef();
@@ -78,7 +80,12 @@ const Navbar = ({ setActiveModal }) => {
 
   return (
     <div className="bg-black px-6 py-4 sm:px-12 flex justify-between items-center fixed top-0 left-0 w-full z-50 shadow-md">
-      <h1 className="text-white text-3xl sm:text-4xl font-bold">CustomClothes</h1>
+      <button
+        className="text-white text-3xl sm:text-4xl font-bold"
+        onClick={() => navigate('/')}
+      >
+        CustomClothes
+      </button>
 
       <div className="flex items-center space-x-6">
         {isLoggedIn ? (
@@ -114,41 +121,41 @@ const Navbar = ({ setActiveModal }) => {
                 )}
               </button>
               {showFavDropdown && (
-  <div ref={favRef} className="absolute right-0 mt-2 bg-white text-black rounded-2xl shadow-2xl w-96 max-h-[500px] overflow-y-auto z-50">
-    <div className="p-4 font-semibold text-pink-600 border-b-2 text-xl">Favourites</div>
-    {favItems.length > 0 ? (
-      <>
-        {favItems.map((item, i) => (
-          <div key={i} className="flex items-center gap-4 p-4 border-b-2 hover:bg-gray-50 transition duration-300">
-            <img src={item.image} alt={item.title} className="w-20 h-20 object-contain rounded-lg border bg-white shadow-sm" />
-            <div className="flex-1">
-              <h4 className="text-lg font-semibold text-gray-800 line-clamp-2">{item.title}</h4>
-              <span className="text-sm text-gray-600">${item.price}</span>
-            </div>
-            <button
-              onClick={() => {
-                const updatedFav = favItems.filter((_, index) => index !== i);
-                setFavItems(updatedFav);
-                localStorage.setItem('favourites', JSON.stringify(updatedFav));
-              }}
-              className="text-red-600 hover:text-red-800 text-xl font-bold px-3 py-1 rounded-full transition-all duration-300"
-            >
-              ×
-            </button>
-            <button
-              onClick={() => handleAddToCartFromFav(item)}
-              className="bg-blue-600 hover:bg-blue-700 text-white text-sm px-5 py-3 rounded-full transition-all duration-300 ml-4"
-            >
-              Add to Cart
-            </button>
-          </div>
-        ))}
-      </>
-    ) : (
-      <EmptyDropdown message="Your favourites list is empty." />
-    )}
-  </div>
-)}
+                <div ref={favRef} className="absolute right-0 mt-2 bg-white text-black rounded-2xl shadow-2xl w-96 max-h-[500px] overflow-y-auto z-50">
+                  <div className="p-4 font-semibold text-pink-600 border-b-2 text-xl">Favourites</div>
+                  {favItems.length > 0 ? (
+                    <>
+                      {favItems.map((item, i) => (
+                        <div key={i} className="flex items-center gap-4 p-4 border-b-2 hover:bg-gray-50 transition duration-300">
+                          <img src={item.image} alt={item.title} className="w-20 h-20 object-contain rounded-lg border bg-white shadow-sm" />
+                          <div className="flex-1">
+                            <h4 className="text-lg font-semibold text-gray-800 line-clamp-2">{item.title}</h4>
+                            <span className="text-sm text-gray-600">${item.price}</span>
+                          </div>
+                          <button
+                            onClick={() => {
+                              const updatedFav = favItems.filter((_, index) => index !== i);
+                              setFavItems(updatedFav);
+                              localStorage.setItem('favourites', JSON.stringify(updatedFav));
+                            }}
+                            className="text-red-600 hover:text-red-800 text-xl font-bold px-3 py-1 rounded-full transition-all duration-300"
+                          >
+                            ×
+                          </button>
+                          <button
+                            onClick={() => handleAddToCartFromFav(item)}
+                            className="bg-blue-600 hover:bg-blue-700 text-white text-sm px-5 py-3 rounded-full transition-all duration-300 ml-4"
+                          >
+                            Add to Cart
+                          </button>
+                        </div>
+                      ))}
+                    </>
+                  ) : (
+                    <EmptyDropdown message="Your favourites list is empty." />
+                  )}
+                </div>
+              )}
 
             </div>
 
